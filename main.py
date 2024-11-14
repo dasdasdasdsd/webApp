@@ -90,17 +90,17 @@ def clean_combined_data():
 async def execute_full_script():
     try:
         # Step 1: Process documents from Blob storage
-        results = process_documents()
+        # results = process_documents()
 
         # Step 2: Clean the data extracted from documents
-        cleaned_data = clean_data(results)
+        # cleaned_data = clean_data(results)
 
         # Step 3: Clean combined data from SQL database
-        cleaned_combined_data = clean_combined_data()
+        df = clean_combined_data()
 
         # Step 4: Combine data and save to database
-        df_combined = pd.merge(cleaned_combined_data, cleaned_data, on='CompleteName', how='left')
-        df_combined.to_sql('personas', con=engine, if_exists='replace', index=False)
+        # df_combined = pd.merge(cleaned_combined_data, cleaned_data, on='CompleteName', how='left')
+        df.to_sql('personas', con=engine, if_exists='replace', index=False)
 
         return {"message": "Script executed successfully and data saved to database."}
     except Exception as e:
